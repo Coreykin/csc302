@@ -1,0 +1,24 @@
+# Import necessary libraries
+import pandas as pd
+# Load the Olympic medals data
+medals = pd.read_csv('/content/olympic_medals.csv')
+# (a) Find the size of the data frame
+print("Data frame size:")
+print(medals.shape)
+# (b) Report the data types for all columns
+print("\nData types for each column:")
+print(medals.columns)
+# (c) Find how many unique cities matches were held at
+print("\nNumber of unique cities:")
+print(len(medals['Location'].unique()))
+# (d) Find how many medals the USA team won in total
+usa_medals = medals[medals['Nationality'] == 'USA']
+print("\nTotal medals won by the USA team:")
+print(len(usa_medals))
+# (e) Find the total number of medals for each Nationality
+medals_per_nationality = medals.groupby(by='Nationality')['Medal'].count()
+print("\nTotal medals per nationality:")
+print(medals_per_nationality)
+! #
+0s)*
+$ % & " ' (
