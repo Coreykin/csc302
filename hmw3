@@ -1,0 +1,39 @@
+# Import necessary libraries
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the dataset and show the first few lines
+world_cup_matches = pd.read_csv("WorldCupMatches.csv")
+print("First few rows of the dataset:")
+print(world_cup_matches.head())
+
+# Calculate the average number of goals per match
+world_cup_matches["Total Goals"] = world_cup_matches["Home Team Goals"] + world_cup_matches["Away Team Goals"]
+average_goals = world_cup_matches["Total Goals"].mean()
+print("\nAverage number of goals per match:", average_goals)
+
+# Which teams have scored the most goals?
+home_goals = world_cup_matches.groupby("Home Team Name")["Home Team Goals"].sum()
+away_goals = world_cup_matches.groupby("Away Team Name")["Away Team Goals"].sum()
+total_goals = home_goals.add(away_goals, fill_value=0)
+top_teams = total_goals.sort_values(ascending=False).head(10)
+print("\nTop 10 goal-scoring teams:")
+print(top_teams)
+
+#  Plot the number of matches played per year
+matches_per_year = world_cup_matches["Year"].value_counts().sort_index()
+plt.figure(figsize=(12, 5))
+matches_per_year.plot(kind="bar", title="Matches Played Per Year")
+plt.xlabel("Year")
+plt.ylabel("Number of Matches")
+plt.tight_layout()
+plt.show()
+
+# Save the chart to a file
+plt.figure(figsize=(12, 5))
+matches_per_year.plot(kind="bar", title="Matches Played Per Year")
+plt.xlabel("Year")
+plt.ylabel("Number of Matches")
+plt.tight_layout()
+plt.savefig("matches_per_year.png")
+print("\nChart saved as 'matches_per_year.png'")
