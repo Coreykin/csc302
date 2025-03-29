@@ -1,0 +1,19 @@
+import pandas as pd
+import plotly.express as px
+
+# Load the CSV file
+olympic_df = pd.read_csv('/content/olympic_medals.csv')  # Adjust path if needed
+
+# Filter for year >= 2000
+olympic_2000 = olympic_df[olympic_df["Year"] >= 2000]
+
+# Create a parallel categories plot
+fig = px.parallel_categories(
+    olympic_2000,
+    dimensions=["Gender", "Medal"],
+    color=olympic_2000["Year"],
+    color_continuous_scale=px.colors.sequential.Inferno,
+    title="Olympic Medal Types by Gender (Since 2000)"
+)
+
+fig.show()
